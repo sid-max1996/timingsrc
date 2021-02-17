@@ -6,6 +6,5 @@ import { TUpdateStepwiseFactory } from './update-stepwise-factory';
 export type TSetTimingsrcFactory = (
     createUpdateGradually: TUpdateGraduallyFactory,
     createUpdateStepwise: TUpdateStepwiseFactory,
-    setTimingsrcWithCustomUpdateFunction: TSetTimingsrcWithCustomUpdateFunctionFunction,
-    window: null | Window
+    setTimingsrcWithCustomUpdateFunction: TSetTimingsrcWithCustomUpdateFunctionFunction
 ) => TSetTimingsrcFunction;

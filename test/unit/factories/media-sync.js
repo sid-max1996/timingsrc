@@ -1,6 +1,13 @@
 import { spy, stub } from 'sinon';
 import { createSetTimingsrc } from '../../../src/factories/set-timingsrc';
 
+const updateSettings = {
+    isGradually: true,
+    threshold: 1,
+    timeConstant: 0.5,
+    tolerance: 0.025
+};
+
 describe('setTimingsrc()', () => {
     let createUpdateGradually;
     let createUpdateStepwise;
@@ -39,13 +46,13 @@ describe('setTimingsrc()', () => {
         });
 
         it('should call createUpdateGradually with the default arguments', () => {
-            setTimingsrc(mediaElement, timingObject, prepareTimingStateVector);
+            setTimingsrc(mediaElement, timingObject, updateSettings, prepareTimingStateVector);
 
             expect(createUpdateGradually).to.have.been.calledOnce.and.calledWithExactly(0.5, 1, 0.025);
         });
 
         it('should call setTimingsrcWithCustomUpdateFunction internally with the function that applies gradual updates', () => {
-            setTimingsrc(mediaElement, timingObject, prepareTimingStateVector);
+            setTimingsrc(mediaElement, timingObject, updateSettings, prepareTimingStateVector);
 
             expect(setTimingsrcWithCustomUpdateFunction).to.have.been.calledOnce.and.calledWithExactly(
                 mediaElement,
@@ -62,13 +69,13 @@ describe('setTimingsrc()', () => {
         });
 
         it('should call createUpdateGradually with the default arguments', () => {
-            setTimingsrc(mediaElement, timingObject, prepareTimingStateVector);
+            setTimingsrc(mediaElement, timingObject, updateSettings, prepareTimingStateVector);
 
             expect(createUpdateGradually).to.have.been.calledOnce.and.calledWithExactly(0.5, 1, 0.025);
         });
 
         it('should call setTimingsrcWithCustomUpdateFunction internally with the function that applies gradual updates', () => {
-            setTimingsrc(mediaElement, timingObject, prepareTimingStateVector);
+            setTimingsrc(mediaElement, timingObject, updateSettings, prepareTimingStateVector);
 
             expect(setTimingsrcWithCustomUpdateFunction).to.have.been.calledOnce.and.calledWithExactly(
                 mediaElement,
@@ -88,13 +95,13 @@ describe('setTimingsrc()', () => {
         });
 
         it('should call createUpdateStepwise with the default arguments', () => {
-            setTimingsrc(mediaElement, timingObject, prepareTimingStateVector);
+            setTimingsrc(mediaElement, timingObject, updateSettings, prepareTimingStateVector);
 
             expect(createUpdateStepwise).to.have.been.calledOnce.and.calledWithExactly(0.025);
         });
 
         it('should call setTimingsrcWithCustomUpdateFunction internally with the function that applies stepwise updates', () => {
-            setTimingsrc(mediaElement, timingObject, prepareTimingStateVector);
+            setTimingsrc(mediaElement, timingObject, updateSettings, prepareTimingStateVector);
 
             expect(setTimingsrcWithCustomUpdateFunction).to.have.been.calledOnce.and.calledWithExactly(
                 mediaElement,
