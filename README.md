@@ -31,7 +31,14 @@ import { setTimingsrc } from 'timingsrc';
 const mediaElement = document.getElementsByTagName('video')[0];
 const timingObject = new TimingObject();
 
-const deleteTimingsrc = setTimingsrc(mediaElement, timingObject);
+const updateSettings = {
+    isGradually: true,
+    threshold: 1,
+    timeConstant: 0.5,
+    tolerance: 0.025
+};
+
+const deleteTimingsrc = setTimingsrc(mediaElement, timingObject, updateSettings);
 
 // The synchronization can be stopped again at any point in time.
 deleteTimingsrc();
