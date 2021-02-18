@@ -1,7 +1,7 @@
 import { TUpdateStepwiseFactoryFactory } from '../types';
 
 export const createUpdateStepwiseFactory: TUpdateStepwiseFactoryFactory = (translateTimingStateVector) => {
-    return (tolerance) => {
+    return (tolerance, stepwiseDelay) => {
         let lastMotionUpdate: null | { position: number; timestamp: number; velocity: number } = null;
         let mediaElementDelay = 0;
 
@@ -15,8 +15,8 @@ export const createUpdateStepwiseFactory: TUpdateStepwiseFactoryFactory = (trans
             if (lastMotionUpdate !== null) {
                 const playheadDifference = Math.abs(currentTime - lastMotionUpdate.position);
 
-                // Check if at least 10ms were played since the last motion update.
-                if (playheadDifference < 0.01) {
+                // Check if at least stepwiseDelay were played since the last motion update.
+                if (playheadDifference < stepwiseDelay) {
                     return { position: currentTime, velocity: lastMotionUpdate.velocity };
                 }
             }

@@ -3,6 +3,7 @@ import { createSetTimingsrc } from '../../../src/factories/set-timingsrc';
 
 const updateSettings = {
     isGradually: true,
+    stepwiseDelay: 0.01,
     threshold: 1,
     timeConstant: 0.5,
     tolerance: 0.025

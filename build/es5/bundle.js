@@ -11,10 +11,11 @@
     var createSetTimingsrc = function createSetTimingsrc(createUpdateGradually, createUpdateStepwise, setTimingsrcWithCustomUpdateFunction) {
       return function (mediaElement, timingObject, updateSettings) {
         var prepareTimingStateVector = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
-        var THRESHOLD = updateSettings.threshold;
-        var TIME_CONSTANT = updateSettings.timeConstant;
-        var TOLERANCE = updateSettings.tolerance;
-        var updateFun = updateSettings.isGradually ? createUpdateGradually(TIME_CONSTANT, THRESHOLD, TOLERANCE) : createUpdateStepwise(TOLERANCE);
+        var threshold = updateSettings.threshold;
+        var timeConstant = updateSettings.timeConstant;
+        var tolerance = updateSettings.tolerance;
+        var stepwiseDelay = updateSettings.stepwiseDelay;
+        var updateFun = updateSettings.isGradually ? createUpdateGradually(timeConstant, threshold, tolerance) : createUpdateStepwise(tolerance, stepwiseDelay);
         return setTimingsrcWithCustomUpdateFunction(mediaElement, timingObject, updateFun, prepareTimingStateVector);
       };
     };
@@ -96,7 +97,7 @@
     function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty__default['default'](target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
     var createUpdateStepwiseFactory = function createUpdateStepwiseFactory(translateTimingStateVector) {
-      return function (tolerance) {
+      return function (tolerance, stepwiseDelay) {
         var lastMotionUpdate = null;
         var mediaElementDelay = 0;
         return function (timingStateVector, currentTime) {
@@ -109,9 +110,9 @@
           }
 
           if (lastMotionUpdate !== null) {
-            var playheadDifference = Math.abs(currentTime - lastMotionUpdate.position); // Check if at least 10ms were played since the last motion update.
+            var playheadDifference = Math.abs(currentTime - lastMotionUpdate.position); // Check if at least stepwiseDelay were played since the last motion update.
 
-            if (playheadDifference < 0.01) {
+            if (playheadDifference < stepwiseDelay) {
               return {
                 position: currentTime,
                 velocity: lastMotionUpdate.velocity

@@ -6,12 +6,13 @@ export const createSetTimingsrc: TSetTimingsrcFactory = (
     setTimingsrcWithCustomUpdateFunction
 ) => {
     return (mediaElement, timingObject, updateSettings, prepareTimingStateVector = null) => {
-        const THRESHOLD = updateSettings.threshold;
-        const TIME_CONSTANT = updateSettings.timeConstant;
-        const TOLERANCE = updateSettings.tolerance;
+        const threshold = updateSettings.threshold;
+        const timeConstant = updateSettings.timeConstant;
+        const tolerance = updateSettings.tolerance;
+        const stepwiseDelay = updateSettings.stepwiseDelay;
         const updateFun = updateSettings.isGradually
-            ? createUpdateGradually(TIME_CONSTANT, THRESHOLD, TOLERANCE)
-            : createUpdateStepwise(TOLERANCE);
+            ? createUpdateGradually(timeConstant, threshold, tolerance)
+            : createUpdateStepwise(tolerance, stepwiseDelay);
 
         return setTimingsrcWithCustomUpdateFunction(mediaElement, timingObject, updateFun, prepareTimingStateVector);
     };
