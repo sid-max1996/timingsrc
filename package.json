@@ -69,16 +69,14 @@
     },
     "license": "MIT",
     "main": "build/es5/bundle.js",
-    "module": "build/es2019/module.js",
-    "name": "timingsrc",
+    "name": "cubic-timingsrc",
     "repository": {
         "type": "git",
-        "url": "https://github.com/chrisguttandin/timingsrc.git"
+        "url": "https://github.com/sid-max1996/timingsrc"
     },
     "scripts": {
         "prepublishOnly": "grunt build",
         "test": "grunt lint && grunt test"
     },
-    "types": "build/es2019/module.d.ts",
-    "version": "1.0.14"
+    "version": "1.0.15"
 }

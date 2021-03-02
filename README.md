@@ -1,4 +1,4 @@
-# timingsrc
+# cubic-timingsrc
 
 **A library to synchronize a MediaElement with a TimingObject.**
 
